@@ -35,6 +35,19 @@ class CityRepository {
     }
 
     fun updateCity(oldCity: City, updatedCity: City) {
-        citiesRef.document(oldCity.name).set(updatedCity)
+        citiesRef.whereEqualTo("name", oldCity.name).get()
+            .addOnSuccessListener { snapshot ->
+                val batch = db.batch()
+                snapshot.documents.forEach { batch.delete(it.reference) }
+                batch.set(citiesRef.document(updatedCity.name), updatedCity)
+                batch.commit()
+            }
+    }
+
+    fun deleteCity(city: City) {
+        citiesRef.whereEqualTo("name", city.name).get()
+            .addOnSuccessListener { snapshot ->
+                snapshot.documents.forEach { it.reference.delete() }
+            }
     }
 }

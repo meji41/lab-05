@@ -26,12 +26,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.listycity.ui.theme.ListyCityTheme
+import androidx.compose.material3.TextButton
+import androidx.compose.ui.Alignment
 
 @Composable
 fun CityListScreen(
     cities: List<City>,
     onAddCity: (City) -> Unit,
     onUpdateCity: (City, City) -> Unit,
+    onDeleteCity: (City) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var newCityName by remember { mutableStateOf("") }
@@ -166,6 +169,12 @@ fun CityListScreen(
                         selectedCity = city
                         editedCityName = city.name
                         editedProvinceName = city.province
+                    },
+                    onDelete = {
+                        onDeleteCity(city)
+                        if (selectedCity == city) {
+                            selectedCity = null
+                        }
                     }
                 )
                 if (index < cities.lastIndex) {
@@ -180,13 +189,15 @@ fun CityListScreen(
 @Composable
 fun CityRow(
     city: City,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onDelete: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { onClick() }
-            .padding(horizontal = 20.dp, vertical = 16.dp)
+            .padding(horizontal = 20.dp, vertical = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = city.name,
@@ -199,9 +210,12 @@ fun CityRow(
             fontSize = 30.sp,
             modifier = Modifier.weight(1f)
         )
+
+        TextButton(onClick = onDelete) {
+            Text("Delete")
+        }
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun CityListScreenPreview() {
@@ -213,7 +227,8 @@ fun CityListScreenPreview() {
                 City("Calgary", "AB")
             ),
             onAddCity = {},
-            onUpdateCity = { _, _ -> }
+            onUpdateCity = { _, _ -> },
+            onDeleteCity = {}
         )
     }
 }
