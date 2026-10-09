@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "848600704951",
+    "project_id": "fire-mejida",
+    "storage_bucket": "fire-mejida.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:848600704951:android:02e087a986e68e317cea32",
+        "android_client_info": {
+          "package_name": "com.example.listycity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAaee_g4qq16ifvIBtzQAAbnzE8m10jHY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
